@@ -29,7 +29,13 @@
   </property>
  </bean>
 
+<bean id="memDao" class="member.DaoImpl">
+	<constructor-arg ref="DataSource"></constructor-arg>
+</bean>
 
+<bean id="memService" class="member.ServiceImpl">
+	<constructor-arg ref="memDao"></constructor-arg>
+</bean>
 	
 
 </beans>
