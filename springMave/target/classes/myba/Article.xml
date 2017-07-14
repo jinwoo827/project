@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	 <mapper namespace="board.ArticleMapper">
+	 
+	 	<resultMap type="board.Article" id="BoardResult">
+	 		<result column="num" property="num"/>
+	 		<result column="title" property="title"/>
+	 		<result column="writer_id" property="writer_id"/>
+	 		<result column="w_date" property="w_date"/>
+	 		<result column="content" property="content"/>
+	 		<result column="parent_num" property="parent_num"/>
+	 	</resultMap>
+	 	
+	 	<insert id="insert" parameterType="board.Article">
+	 		insert into board values(seq_board.nextval,#{title},#{writer_id},sysdate,#{content},#{parent_num})
+	 	</insert>
+	 	
+	 	<select id="select" parameterType="java.lang.Integer" resultMap="BoardResult">
+	 		select * from board where num=#{num}
+	 	</select>
+	 	
+	 	<select id="selectAll" resultMap="BoardResult">
+	 		select * from board where parent_num=0
+	 	</select>
+	 	
+	 	<select id="selectByParentNum" parameterType="java.lang.Integer" resultMap="BoardResult">
+	 		select * from board where parent_num=#{parent_num}
+	 	</select>
+	 	
+	 	<update id="update" parameterType="board.Article">
+	 		update board set title=#{title}, w_date=sysdate, content=#{content} where num=#{num}
+	 	</update>
+	 	
+	 	<delete id="delete" parameterType="java.lang.Integer">
+	 		delete board where num=#{num}
+	 	</delete>
+	 
+	 
+	 </mapper>
